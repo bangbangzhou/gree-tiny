@@ -1,0 +1,64 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: gree-mes
+  profiles:
+    active: prod
+  datasource:
+    url: jdbc:mysql://192.168.154.125:3306/gree?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: reader
+    password: 123456
+  redis:
+    host: 192.168.154.125 # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+#  global-config:
+#    db-config:
+#      id-type: auto
+#  configuration:
+#    auto-mapping-behavior: partial
+#    map-underscore-to-camel-case: true
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: gree-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+
+redis:
+  database: gree
+  key:
+    admin: 'gree:admin'
+    resourceList: 'gree:resourceList'
+  expire:
+    common: 86400 # 24小时
+logging:
+  file:
+    path: /var/logs
+  level:
+    root: info
+  config: classpath:logback-spring.xml
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /greeAdmin/login
+      - /greeAdmin/register
+      - /greeAdmin/info
+      - /greeAdmin/logout
+
